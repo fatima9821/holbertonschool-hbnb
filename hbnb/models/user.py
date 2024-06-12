@@ -19,6 +19,7 @@ class User:
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
         self.places = []
+        self.password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         # lutilisateur peut avoir plusieurs places
 
     def create_place(self, place):
