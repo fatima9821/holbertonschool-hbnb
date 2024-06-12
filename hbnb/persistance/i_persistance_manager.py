@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
-"""Interface contenant les declarations des methodes CRUD"""
+"""
+    Interface contenant les declarations 
+    des methodes abstraites CRUD
+"""
 
 
 class IPersistenceManager(ABC):
