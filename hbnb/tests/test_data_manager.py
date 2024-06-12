@@ -1,4 +1,9 @@
+import sys
 import unittest
+import os
+import json
+from unittest.mock import patch
+sys.path.append('/root/holbertonschool-hbnb/hbnb')
 from persistance.DataManager import DataManager
 
 
