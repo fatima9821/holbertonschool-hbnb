@@ -1,6 +1,7 @@
 import json
 import os
 from uuid import uuid4
+from persistance.i_persistance_manager import IPersistenceManager
 """
     Classe qui impléménte les opérations 
     de persistance des données CRUD
