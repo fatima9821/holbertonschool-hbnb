@@ -1,19 +1,23 @@
 import pytest
-from unittest.mock import patch
-from models.user import User
+from datetime import datetime
+from hbnb.models.user import User
 
 @pytest.fixture(autouse=True)
 def reset_emails():
     User._emails = set()
 
-@patch('models.user.User.__init__', return_value=None)
-def test_user_creation(mock_init):
+
+def test_user_creation():
     user = User(id="1", email="test@example.com",
                 password="password123", first_name="Fatoumata",
                 last_name="Bah")
-    user.__init__.assert_called_once_with(id="1", email="test@example.com",
-                                          password="password123",
-                                          first_name="Fatoumata", last_name="Bah")
+    assert user.id == "1"
+    assert user.email == "test@example.com"
+    assert user.first_name == "Fatoumata"
+    assert user.last_name == "Bah"
+    assert user.created_at <= datetime.now()
+    assert user.updated_at <= datetime.now()
+    assert user.authenticate("passeword123") is True
 
 def test_duplicate_email():
     user1 = User(id="1", email="test@example.com", password="password123",
@@ -25,6 +29,6 @@ def test_duplicate_email():
 def test_authenticate():
     user = User(id="1", email="test@example.com", password="password123",
                 first_name="Fatoumata", last_name="Bah")
-    assert user.authenticate("password123")
-    assert not user.authenticate("wrongpassword")
+    assert user.authenticate("password123") is True
+    assert not user.authenticate("wrongpassword") is False
     

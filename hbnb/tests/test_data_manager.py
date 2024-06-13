@@ -1,66 +1,40 @@
-import sys
-import unittest
-import os
-import json
-from unittest.mock import patch
-sys.path.append('/root/holbertonschool-hbnb/hbnb')
-from persistance.DataManager import DataManager
+import pytest
+from hbnb.persistence.DataManager import DataManager
+from hbnb.models.user import User
 
 
-class TestDataManager(unittest.TestCase):
+class TestDataManager():
     def setUp(self):
-        self.data_manager = DataManager('test_data.json')
-        # Ensure the test data file is clean before each test
-        with open('test_data.json', 'w') as f:
-            json.dump({}, f)
-    
-    def test_save_and_get_user(self):
-        user = {
-            'type': 'User',
-            'email': 'test@example.com',
-            'password': 'password123',
-            'first_name': 'Test',
-            'last_name': 'User',
-            'created_at': '2023-06-01T12:00:00Z',
-            'updated_at': '2023-06-01T12:00:00Z'
-        }
-        user_id = self.data_manager.save(user)
-        retrieved_user = self.data_manager.get(user_id, 'User')
-        self.assertIsNotNone(retrieved_user)
+        self.manager = DataManager('test_data.json')
+
+    def tearDown(self):
+        import os
+        os.remove('test_data.json')
+
+    def test_save_user(self):
+        user = User('1', 'test@example.com', 'password123', 'John', 'Doe')
+        saved_user = self.manager.save(user.to_dict())
+        self.assertEqual(saved_user['email'], 'test@example.com')
+
+    def test_get_user(self):
+        user = User('1', 'test@example.com', 'password123', 'John', 'Doe')
+        self.manager.save(user.to_dict())
+        retrieved_user = self.manager.get('1', 'User')
         self.assertEqual(retrieved_user['email'], 'test@example.com')
-    
+
     def test_update_user(self):
-        user = {
-            'type': 'User',
-            'email': 'yveline@gmail.com',
-            'password': 'password123',
-            'first_name': 'Yveline',
-            'last_name': 'Mendes',
-            'created_at': '2023-06-01T12:00:00Z',
-            'updated_at': '2023-06-01T12:00:00Z'
-        }
-        user_id = self.data_manager.save(user)
-        user['id'] = user_id
-        user['first_name'] = 'Updated'
-        self.data_manager.update(user)
-        updated_user = self.data_manager.get(user_id, 'User')
-        self.assertEqual(updated_user['first_name'], 'Updated')
-    
+        user = User('1', 'test@example.com', 'password123', 'John', 'Doe')
+        self.manager.save(user.to_dict())
+        user.first_name = 'Jane'
+        updated_user = self.manager.update(user.to_dict())
+        self.assertEqual(updated_user['first_name'], 'Jane')
+
     def test_delete_user(self):
-        user = {
-            'type': 'User',
-            'email': 'fatoumata@gmail.com',
-            'password': 'password123',
-            'first_name': 'Bah',
-            'last_name': 'Fatoumata',
-            'created_at': '2023-06-01T12:00:00Z',
-            'updated_at': '2023-06-01T12:00:00Z'
-        }
-        user_id = self.data_manager.save(user)
-        self.data_manager.delete(user_id, 'User')
-        deleted_user = self.data_manager.get(user_id, 'User')
-        self.assertIsNone(deleted_user)
+        user = User('1', 'test@example.com', 'password123', 'John', 'Doe')
+        self.manager.save(user.to_dict())
+        result = self.manager.delete('1', 'User')
+        self.assertTrue(result)
+        self.assertIsNone(self.manager.get('1', 'User'))
 
 if __name__ == '__main__':
-    unittest.main()
-
+    pytest.main()

@@ -2,6 +2,7 @@
 """classe name """
 from datetime import datetime
 import uuid
+import hashlib
 
 
 class User:
@@ -10,12 +11,12 @@ class User:
     def __init__(self, id, email, password, first_name, last_name):
         if email in User._emails:
             raise ValueError("Email already exists")
-        User._emails.add(email)
-        self.id = id or str(uuid.uuid4())
-        self.email = email
-        self.password = password
-        self.first_name = first_name
-        self.last_name = last_name
+        User._emails.add()
+        self.id = id or str()
+        self.email = ()
+        self.password = ()
+        self.first_name = ()
+        self.last_name = ()
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
         self.places = []
@@ -27,4 +28,5 @@ class User:
 
     # Méthode d'authentification
     def authenticate(self, password):
-        return self.password == password
+        return self.password == hashlib.sha256(password.encode(
+                                               'utf-8')).hexdigest()

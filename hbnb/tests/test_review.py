@@ -1,17 +1,15 @@
 import pytest
-from unittest.mock import patch
-from models.review import Review
+from hbnb.models.review import Review
 
 
-@patch('models.review.Review.__init__', return_value=None)
-def test_review_creation(mock_init):
+def test_review_creation():
     review = Review(id="1", text="Des grands espaces!", rating=7,
                         user="Maiyra Mai", place="Belle Demeure")
-    review.__init__.assert_called_once_with(id="1",
-                                             text="Des grands espaces!",
-                                             rating=7,
-                                             user="Maiyra Mai",
-                                             place="Belle Demeure")
+    assert review.id == "1"
+    assert review.text == "Des grands espaces!"
+    assert review.rating == 7
+    assert review.user == "Maiyra Mai"
+    assert review.place == "Belle Demeure"
 
 
 def test_edit_review():

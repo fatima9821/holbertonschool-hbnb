@@ -1,9 +1,8 @@
 import pytest
-from unittest.mock import patch
-from models.country import Country
+from hbnb.models.country import Country
 
 
-@patch('models.country.Country.__init__', return_value=None)
-def test_country_creation(mock_init):
+def test_country_creation():
     country = Country(id="1", name="France")
-    country.__init__.assert_called_once_with(id="1", name="France")
+    assert country.id == "1"
+    assert country.name == "France"
