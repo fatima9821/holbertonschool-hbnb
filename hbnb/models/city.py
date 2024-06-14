@@ -6,6 +6,8 @@ import uuid
 
 class City:
     def __init__(self, id, name, country):
+        if not id or not name:
+            raise TypeError("id, name and country are required")
         self.id = ()
         self.name = ()
         self.country = ()

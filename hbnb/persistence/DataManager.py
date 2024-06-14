@@ -42,11 +42,14 @@ class DataManager(IPersistenceManager):
         data = self._load_data()
         entity_id = entity['id']
         entity_type = entity['type']
+        if not entity_id or not entity_type:
+            raise ValueError("Entity must have 'id' and 'type' attribrutes.")
         if entity_type in data and entity_id in data[entity_type]:
             data[entity_type][entity_id] = entity
             self._save_data(data)
             return True
-        return False
+        else:
+            raise KeyError(f"Entity with id '{entity_id}' and type '{entity_type}' not found.")
 
     def delete(self, entity_id, entity_type):
         data = self._load_data()
