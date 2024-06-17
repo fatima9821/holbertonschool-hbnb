@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """classe name """
-from .base_models import BaseModel
+from models.base_models import BaseModel
+from datetime import datetime
 import hashlib
 
 

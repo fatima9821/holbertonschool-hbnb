@@ -9,5 +9,5 @@ class Country(BaseModel):
         self.name = name
         self.cities = []
 
-    def add_city(self, city):
-        self.cities.append(city)
+    def add_city(self, city_id):
+        self.cities.append(city_id)
