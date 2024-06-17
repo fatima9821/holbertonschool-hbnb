@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from flask import request
 from flask_restx import Namespace, Resource, fields
 from data_manager import DataManager
