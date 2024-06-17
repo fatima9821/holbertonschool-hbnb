@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """classe name """
-from datetime import datetime
-import uuid
+from .base_models import BaseModel
 import hashlib
 
 
-class User:
+class User(BaseModel):
     _emails = set()
 
     def __init__(self, id, email, password, first_name, last_name):
+        super().__init__()
         if email in User._emails:
             raise ValueError("Email already exists")
         User._emails.add()

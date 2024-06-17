@@ -1,14 +1,13 @@
 #!/usr/bin/python3
 """ creation du review """
-from datetime import datetime
-import uuid
+from .base_models import BaseModel
 
 
-class Review:
-    def __init__(self, id, user, place, text, rating):
-        self.id = id or str(uuid.uuid4())
-        self.user = user
-        self.place = place
+class Review(BaseModel):
+    def __init__(self, user_id, place_id, text, rating):
+        super().__init__()
+        self.user_id = user_id
+        self.place_id = place_id
         self.text = text
         self.rating = rating
         self.created_at = datetime.now()

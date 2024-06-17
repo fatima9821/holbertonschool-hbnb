@@ -10,7 +10,7 @@ class City:
             raise TypeError("id, name and country are required")
         self.id = ()
         self.name = ()
-        self.country = ()
+        self.country_id = ()
         self.created_at = datetime.now()
         self.created_at = datetime.now()
         self.places = []
