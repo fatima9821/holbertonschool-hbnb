@@ -1,5 +1,8 @@
-from flask_restful import Resource, Api
-from models.city import CityModel
+from flask import request
+from flask_restx import Namespace, Resource, fields
+from data_manager import DataManager
+from model.city import City
+from datetime import datetime
 
 
 class CityList(Resource):

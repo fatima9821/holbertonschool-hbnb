@@ -1,7 +1,10 @@
-from flask_restful import Resource, Api
-from models.review import ReviewModel
-from models.place import PlaceModel
-from flask_jwt_extended import jwt_required, get_raw_jwt
+from flask import request
+from flask_restx import Namespace, Resource, fields
+from data_manager import DataManager
+from model.review import Review
+import uuid
+from datetime import datetime
+
 
 class ReviewList(Resource):
     def get(self, place_id):
