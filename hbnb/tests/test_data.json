@@ -1,0 +1,14 @@
+{
+    "User": {
+        "021166b4-bd72-4fa0-a0e4-df5fd1713591": {
+            "type": "User",
+            "email": "yveline@gmail.com",
+            "password": "password123",
+            "first_name": "Updated",
+            "last_name": "Mendes",
+            "created_at": "2023-06-01T12:00:00Z",
+            "updated_at": "2023-06-01T12:00:00Z",
+            "id": "021166b4-bd72-4fa0-a0e4-df5fd1713591"
+        }
+    }
+}

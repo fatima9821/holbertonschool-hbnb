@@ -38,6 +38,9 @@ class DataManager(IPersistenceManager):
         data = self._load_data()
         return data.get(entity_type, {}).get(entity_id, None)
 
+    def get_all(self):
+        return self.session.query(User).all()
+    
     def update(self, entity):
         data = self._load_data()
         entity_id = entity['id']
