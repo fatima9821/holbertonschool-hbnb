@@ -1,5 +1,10 @@
 import sys
 import os
+<<<<<<< HEAD
+=======
+
+from api import app
+>>>>>>> origin/main
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 from models.user import User

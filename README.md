@@ -111,7 +111,7 @@ The API consists of three layers:
 
 ## diagramme UML
 
-![UML Diagram](https://app.diagrams.net/index.html)
+![UML Diagram](https://drive.google.com/file/d/1Rqv0xq_N_2l0SdWImEEbcVhWLzVIMbed/view?usp=sharing)
 
 ## Authors
 - **MOCTAR Moctar**

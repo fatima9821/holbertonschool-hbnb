@@ -1,5 +1,5 @@
 import pytest
-from hbnb.models.amenity import Amenity
+from models.amenity import Amenity
 
 
 def test_amenity_creation():

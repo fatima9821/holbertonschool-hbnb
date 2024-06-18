@@ -1,5 +1,9 @@
 import unittest
 import json
+<<<<<<< HEAD
+=======
+from api.app import app
+>>>>>>> origin/main
 
 class UserManagementTestCase(unittest.TestCase):
     def setUp(self):

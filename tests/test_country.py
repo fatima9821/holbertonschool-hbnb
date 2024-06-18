@@ -1,5 +1,5 @@
 import pytest
-from hbnb.models.country import Country
+from models.country import Country
 
 
 def test_country_creation():
