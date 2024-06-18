@@ -1,5 +1,5 @@
 import pytest
-from hbnb.models.city import City
+from models.city import City
 
 
 def test_city_creation():

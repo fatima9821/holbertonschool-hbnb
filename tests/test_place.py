@@ -1,7 +1,7 @@
 import pytest
-from hbnb.models.place import Place
-from hbnb.models.amenity import Amenity
-from hbnb.models.review import Review
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 

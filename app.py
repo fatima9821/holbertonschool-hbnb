@@ -1,6 +1,7 @@
 import sys
 import os
 
+from api import app
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 from models.user import User

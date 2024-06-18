@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from hbnb.models.user import User
+from models.user import User
 
 @pytest.fixture(autouse=True)
 def reset_emails():

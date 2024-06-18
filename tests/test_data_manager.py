@@ -1,6 +1,6 @@
 import pytest
-from hbnb.persistence.DataManager import DataManager
-from hbnb.models.user import User
+from persistence.DataManager import DataManager
+from models.user import User
 
 
 class TestDataManager():

@@ -1,5 +1,5 @@
 import pytest
-from hbnb.models.review import Review
+from models.review import Review
 
 
 def test_review_creation():
