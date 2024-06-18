@@ -1,3 +1,5 @@
+![image](https://github.com/fatima9821/holbertonschool-hbnb/assets/146451776/b741f9d5-3626-445e-84ab-820d330040df)
+
 # HBnB Evolution Project: Part 1
 
 Welcome to the HBnB Evolution project! This project is a web application modeled after AirBnB using Python and Flask. In this part, you'll be setting up the foundational elements of the application.
