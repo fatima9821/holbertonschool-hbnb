@@ -1,95 +1,42 @@
-#!/usr/bin/python3
-
-from flask import request
 from flask_restx import Namespace, Resource, fields
-from data_manager import DataManager
-import uuid
-from datetime import datetime
+from persistence.DataManager import DataManager
 
+api = Namespace("users", description="Users related operations")
 
-ns = Namespace('users', description='Operations related to users')
+users_model = api.model(
+    "Users",
+    {
+        "id": fields.String(required=True, description="The user's ID"),
+        "username": fields.String(required=True, description="username for user"),
+        "password": fields.String(required=True, description="user password"),
+        "first_name": fields.String(required=True, description="user first name"),
+        "last_name": fields.String(required=True, description="user last name"),
+        "email": fields.String(required=True, description="user email"),
+        "age": fields.Integer(required=True, description="user age"),
+    },
+)
 
-user_model = ns.model('User', {
-    'id': fields.String(readOnly=True, description='The unique identifier of a user'),
-    'email': fields.String(required=True, description='The email address of the user'),
-    'first_name': fields.String(required=True, description='The first name of the user'),
-    'last_name': fields.String(required=True, description='The last name of the user'),
-    'password': fields.String(required=True, description='The password of the user')
-})
-
-data_manager = DataManager('data.json')
-
-@ns.route('/')
-class UserList(Resource):
-    @ns.expect(user_model)
-    @ns.marshal_with(user_model, code=201)
-    def post(self):
-        data = ns.payload
-        email = data.get('email')
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
-        password = data.get('password')
-
-        if not email or not first_name or not last_name or not password:
-            ns.abort(400, "Missing required fields")
-
-        existing_users = data_manager.get_all('User')
-        if any(user['email'] == email for user in existing_users):
-            ns.abort(409, "Email already exists")
-
-        user = User(email=email, first_name=first_name, last_name=last_name, password=password)
-        saved_user_id = data_manager.save(user.to_dict())
-        saved_user = data_manager.get(saved_user_id, 'User')
-        return saved_user, 201
-
-    @ns.marshal_with(user_model)
+@api.route("/")
+class UsersList(Resource):
+    @api.doc("list_users")
+    @api.marshal_list_with(users_model)
     def get(self):
-        users = data_manager.get_all('User')
-        return users, 200
+        """List all users"""
+        users = UsersManager().getUsers()
+        if not users:
+            return []
+        return [user.toJSON() for user in users]
 
-@ns.route('/<string:user_id>')
-class UserDetail(Resource):
-    @ns.marshal_with(user_model)
-    def get(self, user_id):
-        user_data = data_manager.get(user_id, 'User')
-        if not user_data:
-            ns.abort(404, "User not found")
-        return user_data
-
-    @ns.expect(user_model)
-    @ns.marshal_with(user_model)
-    def put(self, user_id):
-        data = ns.payload
-        user_data = data_manager.get(user_id, 'User')
-        if not user_data:
-            ns.abort(404, "User not found")
-
-        email = data.get('email', user_data['email'])
-        first_name = data.get('first_name', user_data['first_name'])
-        last_name = data.get('last_name', user_data['last_name'])
-
-        if not email or not first_name or not last_name:
-            ns.abort(400, "Missing required fields")
-
-        existing_users = data_manager.get_all('User')
-        if any(u['email'] == email and u['id'] != user_id for u in existing_users):
-            ns.abort(409, "Email already exists")
-
-        user_data.update({
-            'email': email,
-            'first_name': first_name,
-            'last_name': last_name,
-            'updated_at': datetime.now().isoformat()
-        })
-
-        data_manager.update(user_data)
-        return user_data, 200
-
-    def delete(self, user_id):
-        user_data = data_manager.get(user_id, 'User')
-        if not user_data:
-            ns.abort(404, "User not found")
-
-        data_manager.delete(user_id, 'User')
-        return '', 204
+@api.route("/<string:id>")
+@api.param("id", "The user identifier")
+@api.response(404, "User not found")
+class UsersRetrieve(Resource):
+    @api.doc("get_user")
+    @api.marshal_with(users_model)
+    def get(self, id):
+        """Fetch a user given its identifier"""
+        user = UsersManager().getUser(id)
+        if user:
+            return user.toJSON()
+        api.abort(404, "User {} doesn't exist".format(id))
 
