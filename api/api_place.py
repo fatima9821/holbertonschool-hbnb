@@ -1,7 +1,11 @@
-from flask_restful import Resource, Api
-from models.place import PlaceModel
-from models.amenity import AmenityModel
-from models.review import ReviewModel
+#!/usr/bin/python3
+
+from flask import request
+from flask_restx import Namespace, Resource, fields
+from data_manager import DataManager
+from model.place import Place
+from datetime import datetime
+import uuid
 
 
 class PlaceList(Resource):

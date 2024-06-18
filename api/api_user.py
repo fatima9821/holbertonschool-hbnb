@@ -1,6 +1,11 @@
+#!/usr/bin/python3
+
+from flask import request
 from flask_restx import Namespace, Resource, fields
-from models.user import User
-from persistence.data_manager import DataManager
+from data_manager import DataManager
+import uuid
+from datetime import datetime
+
 
 ns = Namespace('users', description='Operations related to users')
 
