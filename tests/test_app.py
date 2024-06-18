@@ -1,6 +1,5 @@
 import unittest
 import json
-from hbnb.api.app import app
 
 class UserManagementTestCase(unittest.TestCase):
     def setUp(self):
