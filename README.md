@@ -111,7 +111,7 @@ The API consists of three layers:
 
 ## diagramme UML
 
-![UML Diagram]("C:\Users\mende\Downloads\UML HBNB part1.drawio.png")
+![UML Diagram](https://app.diagrams.net/index.html)
 
 ## Authors
 - **MOCTAR Moctar**
