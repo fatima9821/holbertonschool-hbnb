@@ -1,4 +1,4 @@
-from flask_restful import Resource, Api
+from flask_restful import Resource, api
 from models.amenity import AmenityModel
 
 
