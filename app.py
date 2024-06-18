@@ -1,6 +1,5 @@
 import sys
 import os
-
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 from models.user import User
@@ -84,3 +83,4 @@ api.add_resource(UserDetailResource, '/users/<user_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
+
